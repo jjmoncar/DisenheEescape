@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Sketched chalk crayon tail of drawing -->
+    <path
+        android:pathData="M24,76 C35,88 75,88 84,64 C90,48 76,32 54,40 C38,46 38,62 50,68 C58,72 72,66 76,54"
+        android:strokeLineCap="round"
+        android:strokeWidth="5"
+        android:strokeColor="#2B2A27" />
+
+    <path
+        android:pathData="M24,76 C35,88 75,88 84,64 C90,48 76,32 54,40 C38,46 38,62 50,68 C58,72 72,66 76,54"
+        android:strokeLineCap="round"
+        android:strokeWidth="9"
+        android:strokeColor="#1E88E5"
+        android:strokeAlpha="0.25" />
+
+    <!-- Cute handwritten smiling ball (The Protagonist) at center -->
+    <!-- Ball body -->
+    <path
+        android:fillColor="#FCFAF2"
+        android:pathData="M 54,54 m -13,0 a 13,13 0 1,0 26,0 a 13,13 0 1,0 -26,0"
+        android:strokeWidth="2.5"
+        android:strokeColor="#2B2A27" />
+
+    <!-- Eyes (happy dots) -->
+    <path
+        android:fillColor="#2B2A27"
+        android:pathData="M 49,50 a 1.5,1.5 0 1,1 0,0.1 Z M 59,50 a 1.5,1.5 0 1,1 0,0.1 Z" />
+
+    <!-- Smile (curved arc) -->
+    <path
+        android:pathData="M49,56 Q54,61 59,56"
+        android:strokeWidth="1.8"
+        android:strokeColor="#2B2A27"
+        android:strokeLineCap="round" />
+
+    <!-- Classic sketchy wooden pencil doodle pointing downwards -->
+    <!-- Metal Band -->
+    <path
+        android:fillColor="#C0D2F0"
+        android:pathData="M74,26 L79,31 L75,35 L70,30 Z"
+        android:strokeWidth="1"
+        android:strokeColor="#2B2A27" />
+
+    <!-- Wooden Body -->
+    <path
+        android:fillColor="#FCFAF2"
+        android:pathData="M48,52 L70,30 L75,35 L53,57 Z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#2B2A27" />
+
+    <!-- Sharp lead tip -->
+    <path
+        android:fillColor="#2B2A27"
+        android:pathData="M48,52 L44,56 L53,57 Z" />
+</vector>

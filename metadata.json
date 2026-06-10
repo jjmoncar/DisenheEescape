@@ -1,0 +1,6 @@
+{
+  "name": "Dibuja y Escapa",
+  "description": "Un juego de física y dibujo donde creas líneas para guiar a un personaje a salvo en un estilo de boceto clásico de libreta.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

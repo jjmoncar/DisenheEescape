@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Sketchbook Cream paper background -->
+    <path
+        android:fillColor="#FCFAF2"
+        android:pathData="M0,0h108v108h-108z" />
+
+    <!-- Blue notebook horizontal writing lines -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,18L108,18 M0,36L108,36 M0,54L108,54 M0,72L108,72 M0,90L108,90"
+        android:strokeWidth="1"
+        android:strokeColor="#C0D2F0" />
+
+    <!-- Red binder vertical line -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M24,0L24,108"
+        android:strokeWidth="1.5"
+        android:strokeColor="#F99D9D" />
+</vector>

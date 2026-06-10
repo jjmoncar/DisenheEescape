@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Dibuja y Escapa</string>
+    <string name="app_subtitle">Física, Ingenio y Bocetos de Libreta</string>
+    <string name="start_adventure">Comenzar Aventura</string>
+    <string name="clear_ink_history">Borrar Historial de Tinta</string>
+    <string name="privacy_terms">Privacidad y Términos</string>
+    <string name="reset_progress_title">¿Reiniciar Progreso?</string>
+    <string name="reset_progress_text">Se borrarán tus marcas de tinta y estrellas en los 50 niveles. Esta acción no se puede deshacer.</string>
+    <string name="delete_all">Eliminar Todo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="close">Cerrar</string>
+    <string name="select_level">Selecciona un Nivel</string>
+    <string name="back">Volver</string>
+    <string name="locked">Bloqueado</string>
+    <string name="star">Estrella</string>
+    <string name="escaped">¡Escapaste!</string>
+    <string name="level_info">Nivel %1$d: %2$s</string>
+    <string name="ink_remaining">Tinta Restante:</string>
+    <string name="time">Tiempo:</string>
+    <string name="next_sketch">Siguiente Boceto</string>
+    <string name="main_menu">Menú Principal</string>
+    <string name="replay">Repetir</string>
+    <string name="selector">Selector</string>
+    <string name="sheet_torn">¡Rotura de Hoja!</string>
+    <string name="retry_fall_keep_ink">Reintentar caída (Mantiene trazos)</string>
+    <string name="clear_all">Borrar Todo</string>
+    <string name="idea">Idea</string>
+    <string name="restart">Reiniciar</string>
+    <string name="reintentar_caida_tooltip">Intentar caída otra vez</string>
+    <string name="borrar_dibujo_tooltip">Borrar Dibujo</string>
+
+    <string name="privacy_block_1">1. Respeto Total de Privacidad:\nNuestra aplicación no recopila, transmite, analiza ni comparte ningún dato personal identificable de los usuarios en absoluto. El juego se ejecuta completamente de forma local en su dispositivo.</string>
+    <string name="privacy_block_2">2. Guardado Local (Room):\nTu progreso de niveles desbloqueados (hasta 50 niveles) y récords de velocidad se almacenan de manera local y en tu dispositivo de forma segura. Puedes borrarlos cuando desees con el botón de reiniciar historial de tinta.</string>
+    <string name="privacy_block_3">3. Sin Publicidad Invasiva o Rastreadores:\nNo incluimos redes publicitarias dirigidas ni SDKs externos de recolección de estadísticas de perfiles de usuario. Ofrecemos un ecosistema de juego sano, seguro para toda la familia y para niños de cualquier edad.</string>
+    <string name="privacy_block_4">4. Consultas del Servidor:\nCualquier consulta integrada opcional a APIs en la nube se realiza de forma totalmente anónima, sin vincular datos que puedan identificarte o rastrearte.</string>
+    <string name="privacy_block_5">5. Soporte y Términos de Uso:\nSe concede una licencia limitada, personal y recreativa de juego. Para cualquier consulta sobre tu privacidad o para soporte de niveles, contáctanos a: emprendedordigital1970@gmail.com</string>
+</resources>

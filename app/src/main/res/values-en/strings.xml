@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Draw &amp; Escape</string>
+    <string name="app_subtitle">Physics, Wit &amp; Notebook Sketches</string>
+    <string name="start_adventure">Start Adventure</string>
+    <string name="clear_ink_history">Clear Ink History</string>
+    <string name="privacy_terms">Privacy &amp; Terms</string>
+    <string name="reset_progress_title">Reset Progress?</string>
+    <string name="reset_progress_text">This will erase your ink drawings and stars across all 50 levels. This action cannot be undone.</string>
+    <string name="delete_all">Delete All</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="select_level">Select a Level</string>
+    <string name="back">Back</string>
+    <string name="locked">Locked</string>
+    <string name="star">Star</string>
+    <string name="escaped">You Escaped!</string>
+    <string name="level_info">Level %1$d: %2$s</string>
+    <string name="ink_remaining">Remaining Ink:</string>
+    <string name="time">Time:</string>
+    <string name="next_sketch">Next Sketch</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="replay">Replay</string>
+    <string name="selector">Selector</string>
+    <string name="sheet_torn">Paper Torn!</string>
+    <string name="retry_fall_keep_ink">Retry drop (Keep strokes)</string>
+    <string name="clear_all">Clear All</string>
+    <string name="idea">Hint</string>
+    <string name="restart">Restart</string>
+    <string name="reintentar_caida_tooltip">Try drop again</string>
+    <string name="borrar_dibujo_tooltip">Clear Drawing</string>
+
+    <string name="privacy_block_1">1. Complete Respect for Privacy:\nOur app does not collect, transmit, analyze, or share any personally identifiable data from users at all. The game runs entirely locally on your device.</string>
+    <string name="privacy_block_2">2. Local Storage (Room):\nYour unlocked level progress (up to 50 levels) and speed records are stored locally on your device in a secure manner. You can wipe them anytime with the clear ink history button.</string>
+    <string name="privacy_block_3">3. No Invasive Ads or Trackers:\nWe do not include targeted ad networks or third-party user profile tracking SDKs. We provide a healthy game ecosystem, safe for the whole family and children of any age.</string>
+    <string name="privacy_block_4">4. Server Queries:\nAny optional integrated cloud API queries are made completely anonymously, without linking any data that could identify or track you.</string>
+    <string name="privacy_block_5">5. Support &amp; Terms of Use:\nA limited, personal, and recreational game license is granted. For any questions regarding your privacy or for level support, contact us at: emprendedordigital1970@gmail.com</string>
+</resources>

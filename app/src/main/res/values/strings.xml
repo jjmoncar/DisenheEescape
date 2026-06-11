@@ -48,4 +48,15 @@
     <string name="privacy_block_3">3. Sin Publicidad Invasiva o Rastreadores:\nNo incluimos redes publicitarias dirigidas ni SDKs externos de recolección de estadísticas de perfiles de usuario. Ofrecemos un ecosistema de juego sano, seguro para toda la familia y para niños de cualquier edad.</string>
     <string name="privacy_block_4">4. Consultas del Servidor:\nCualquier consulta integrada opcional a APIs en la nube se realiza de forma totalmente anónima, sin vincular datos que puedan identificarte o rastrearte.</string>
     <string name="privacy_block_5">5. Soporte y Términos de Uso:\nSe concede una licencia limitada, personal y recreativa de juego. Para cualquier consulta sobre tu privacidad o para soporte de niveles, contáctanos a: emprendedordigital1970@gmail.com</string>
+
+    <string name="faq_tab_presentation">Presentación</string>
+    <string name="faq_tab_faq">Preguntas (FAQ)</string>
+    <string name="faq_q1">¿Cómo borro las líneas?</string>
+    <string name="faq_a1">Puedes usar el botón \'Borrar Todo\' (icono de papelera) en el panel de juego para borrar todos los trazos y empezar de nuevo. O si solo falló una caída, pulsa \'Reintentar\' para relanzar la bola manteniendo tus trazos intactos.</string>
+    <string name="faq_q2">¿Se puede jugar sin conexión?</string>
+    <string name="faq_a2">¡Sí, totalmente! Toda la aventura de 50 niveles con simulación física precisa y el sistema de guardado seguro se ejecutan de manera 100% local en tu dispositivo, sin requerir internet.</string>
+    <string name="faq_q3">¿Cómo gano tres estrellas en cada nivel?</string>
+    <string name="faq_a3">La cantidad de estrellas obtenidas (hasta 3) depende de cuánta tinta te sobre al completar el nivel. ¡Sé eficiente y realiza trazos cortos y precisos!</string>
+    <string name="faq_q4">¿Cómo funcionan los muelles y la gravedad?</string>
+    <string name="faq_a4">La gravedad empuja la bola hacia el suelo (o lateralmente en algunos niveles). Los muelles verdes impulsan la bola fuertemente hacia donde apuntan si la bola choca con ellos.</string>
 </resources>

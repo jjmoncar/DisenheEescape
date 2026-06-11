@@ -1902,6 +1902,7 @@ fun TutorialDialog(
     onDismiss: () -> Unit
 ) {
     var currentPage by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableStateOf(0) } // 0 is Presentación, 1 is FAQ
     
     androidx.compose.ui.window.Dialog(
         onDismissRequest = onDismiss
@@ -1955,7 +1956,7 @@ fun TutorialDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(14.dp))
 
                     // Simulated Notebook Paper sheet separator
                     Canvas(
@@ -1972,316 +1973,478 @@ fun TutorialDialog(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                    // Content Box based on currentPage
-                    Box(
+                    // Tab selector row matching neoclassical/neo-brutalist theme
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(290.dp),
-                        contentAlignment = Alignment.Center
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        when (currentPage) {
-                            0 -> TutorialSlideContent(
-                                title = stringResource(R.string.tutorial_slide1_title),
-                                description = stringResource(R.string.tutorial_slide1_desc),
-                                illustration = {
-                                    // Bouncing ball happy drawing
-                                    val infiniteTransition = rememberInfiniteTransition(label = "TutBall")
-                                    val offsetY by infiniteTransition.animateFloat(
-                                        initialValue = -15f,
-                                        targetValue = 15f,
-                                        animationSpec = infiniteRepeatable(
-                                            animation = tween(1200, easing = EaseInOutSine),
-                                            repeatMode = RepeatMode.Reverse
-                                        ),
-                                        label = "tutOffsetY"
-                                    )
-                                    Canvas(modifier = Modifier.size(100.dp)) {
-                                        val center = Offset(size.width / 2f, size.height / 2f + offsetY.dp.toPx())
-                                        val radius = 22.dp.toPx()
-                                        // Ball standard character
-                                        drawCircle(
-                                            color = SketchCoal,
-                                            radius = radius,
-                                            center = center,
-                                            style = Stroke(width = 3.dp.toPx())
-                                        )
-                                        // Face expression
-                                        drawCircle(
-                                            color = SketchCoal,
-                                            radius = 3.dp.toPx(),
-                                            center = Offset(center.x - 6.dp.toPx(), center.y - 4.dp.toPx())
-                                        )
-                                        drawCircle(
-                                            color = SketchCoal,
-                                            radius = 3.dp.toPx(),
-                                            center = Offset(center.x + 6.dp.toPx(), center.y - 4.dp.toPx())
-                                        )
-                                        drawArc(
-                                            color = SketchCoal,
-                                            startAngle = 10f,
-                                            sweepAngle = 160f,
-                                            useCenter = false,
-                                            topLeft = Offset(center.x - 7.dp.toPx(), center.y + 1.dp.toPx()),
-                                            size = Size(14.dp.toPx(), 8.dp.toPx()),
-                                            style = Stroke(width = 2.dp.toPx())
-                                        )
-                                        
-                                        // Escape doorway hint
-                                        drawRect(
-                                            color = SketchMarginRed.copy(alpha = 0.5f),
-                                            topLeft = Offset(size.width - 20.dp.toPx(), size.height - 30.dp.toPx()),
-                                            size = Size(15.dp.toPx(), 25.dp.toPx())
-                                        )
-                                        drawRect(
-                                            color = SketchCoal,
-                                            topLeft = Offset(size.width - 20.dp.toPx(), size.height - 30.dp.toPx()),
-                                            size = Size(15.dp.toPx(), 25.dp.toPx()),
-                                            style = Stroke(width = 2.dp.toPx())
-                                        )
-                                    }
-                                }
+                        // Presentación Tab
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(38.dp)
+                                .neoShadow(cornerRadius = 8f, offset = if (selectedTab == 0) 0f else 2f)
+                                .background(
+                                    if (selectedTab == 0) SketchCoal else SketchCream,
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .border(2.dp, SketchCoal, RoundedCornerShape(8.dp))
+                                .clickable { selectedTab = 0 }
+                                .testTag("tab_presentation"),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = stringResource(R.string.faq_tab_presentation).uppercase(),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = SketchbookCSS.fontTypewriter,
+                                color = if (selectedTab == 0) Color.White else SketchCoal
                             )
-                            1 -> TutorialSlideContent(
-                                title = stringResource(R.string.tutorial_slide2_title),
-                                description = stringResource(R.string.tutorial_slide2_desc),
-                                illustration = {
-                                    // Pencil/crayon drafting path
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        modifier = Modifier.padding(8.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Edit,
-                                            contentDescription = null,
-                                            tint = SketchActiveBlue,
-                                            modifier = Modifier.size(44.dp)
-                                        )
-                                        Spacer(modifier = Modifier.height(10.dp))
-                                        // Custom line drawing
-                                        Canvas(modifier = Modifier.width(130.dp).height(24.dp)) {
-                                            val p = Path().apply {
-                                                moveTo(0f, size.height * 0.8f)
-                                                quadraticTo(size.width * 0.3f, size.height * 0.1f, size.width * 0.7f, size.height * 0.5f)
-                                                lineTo(size.width, size.height * 0.2f)
-                                            }
-                                            drawPath(
-                                                path = p,
-                                                color = SketchCoal,
-                                                style = Stroke(width = 4.dp.toPx(), cap = StrokeCap.Round)
-                                            )
-                                        }
-                                    }
-                                }
-                            )
-                            2 -> TutorialSlideContent(
-                                title = stringResource(R.string.tutorial_slide3_title),
-                                description = stringResource(R.string.tutorial_slide3_desc),
-                                illustration = {
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        // Warning Spikes
-                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                            Canvas(modifier = Modifier.size(40.dp)) {
-                                                val sizePx = size.width
-                                                val toothWidth = sizePx / 4f
-                                                val p = Path().apply {
-                                                    moveTo(0f, sizePx)
-                                                    for (i in 0..4) {
-                                                        val x = i * toothWidth
-                                                        val y = if (i % 2 == 0) sizePx else 0f
-                                                        lineTo(x, y)
-                                                    }
-                                                    lineTo(sizePx, sizePx)
-                                                    close()
-                                                }
-                                                drawPath(p, color = SketchRedSpike)
-                                                drawPath(p, color = SketchCoal, style = Stroke(width = 2.dp.toPx()))
-                                            }
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            Text("Spikes", fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
-                                        }
+                        }
 
-                                        // Spring / Bouncer
-                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                            Canvas(modifier = Modifier.size(40.dp)) {
-                                                val center = Offset(size.width / 2f, size.height / 2f)
-                                                val radius = size.minDimension * 0.40f
-                                                drawCircle(
-                                                    color = SketchGreenSpring,
-                                                    radius = radius,
-                                                    center = center
-                                                )
-                                                drawCircle(
-                                                    color = SketchCoal,
-                                                    radius = radius,
-                                                    center = center,
-                                                    style = Stroke(width = 2.dp.toPx())
-                                                )
-                                                // Spring coil sketch line
-                                                drawLine(
-                                                    color = SketchCoal,
-                                                    start = Offset(center.x - 10f, center.y - 10f),
-                                                    end = Offset(center.x + 10f, center.y + 10f),
-                                                    strokeWidth = 2f
-                                                )
-                                                drawLine(
-                                                    color = SketchCoal,
-                                                    start = Offset(center.x - 10f, center.y + 10f),
-                                                    end = Offset(center.x + 10f, center.y - 10f),
-                                                    strokeWidth = 2f
-                                                )
-                                            }
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            Text("Bouncer", fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
-                                        }
-                                    }
-                                }
-                            )
-                            3 -> TutorialSlideContent(
-                                title = stringResource(R.string.tutorial_slide4_title),
-                                description = stringResource(R.string.tutorial_slide4_desc),
-                                illustration = {
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(14.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        // Retry character button sketch
-                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(40.dp)
-                                                    .background(SketchCream, RoundedCornerShape(8.dp))
-                                                    .border(2.dp, SketchCoal, RoundedCornerShape(8.dp)),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.Refresh,
-                                                    contentDescription = null,
-                                                    tint = SketchActiveBlue,
-                                                    modifier = Modifier.size(20.dp)
-                                                )
-                                            }
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            Text("Keep Ink", fontSize = 9.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
-                                        }
-                                        
-                                        // Star rating illustration
-                                        Icon(
-                                            imageVector = Icons.Default.Star,
-                                            contentDescription = null,
-                                            tint = Color(0xFFFFD700),
-                                            modifier = Modifier.size(44.dp)
-                                        )
-
-                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .size(40.dp)
-                                                    .background(SketchCream, RoundedCornerShape(8.dp))
-                                                    .border(2.dp, SketchCoal, RoundedCornerShape(8.dp)),
-                                                contentAlignment = Alignment.Center
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.Delete,
-                                                    contentDescription = null,
-                                                    tint = SketchRedSpike,
-                                                    modifier = Modifier.size(20.dp)
-                                                )
-                                            }
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            Text("Clear All", fontSize = 9.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
-                                        }
-                                    }
-                                }
+                        // FAQ Tab
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(38.dp)
+                                .neoShadow(cornerRadius = 8f, offset = if (selectedTab == 1) 0f else 2f)
+                                .background(
+                                    if (selectedTab == 1) SketchCoal else SketchCream,
+                                    RoundedCornerShape(8.dp)
+                                )
+                                .border(2.dp, SketchCoal, RoundedCornerShape(8.dp))
+                                .clickable { selectedTab = 1 }
+                                .testTag("tab_faq"),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = stringResource(R.string.faq_tab_faq).uppercase(),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = SketchbookCSS.fontTypewriter,
+                                color = if (selectedTab == 1) Color.White else SketchCoal
                             )
                         }
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // Pager Page Dots styling (handcrafted circles of sketchbook notebook)
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    // Content Box based on selectedTab and currentPage
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(290.dp),
+                        contentAlignment = Alignment.Center
                     ) {
-                        for (i in 0..3) {
-                            val isActive = i == currentPage
-                            Box(
+                        if (selectedTab == 0) {
+                            when (currentPage) {
+                                0 -> TutorialSlideContent(
+                                    title = stringResource(R.string.tutorial_slide1_title),
+                                    description = stringResource(R.string.tutorial_slide1_desc),
+                                    illustration = {
+                                        // Bouncing ball happy drawing
+                                        val infiniteTransition = rememberInfiniteTransition(label = "TutBall")
+                                        val offsetY by infiniteTransition.animateFloat(
+                                            initialValue = -15f,
+                                            targetValue = 15f,
+                                            animationSpec = infiniteRepeatable(
+                                                animation = tween(1200, easing = EaseInOutSine),
+                                                repeatMode = RepeatMode.Reverse
+                                            ),
+                                            label = "tutOffsetY"
+                                        )
+                                        Canvas(modifier = Modifier.size(100.dp)) {
+                                            val center = Offset(size.width / 2f, size.height / 2f + offsetY.dp.toPx())
+                                            val radius = 22.dp.toPx()
+                                            // Ball standard character
+                                            drawCircle(
+                                                color = SketchCoal,
+                                                radius = radius,
+                                                center = center,
+                                                style = Stroke(width = 3.dp.toPx())
+                                            )
+                                            // Face expression
+                                            drawCircle(
+                                                color = SketchCoal,
+                                                radius = 3.dp.toPx(),
+                                                center = Offset(center.x - 6.dp.toPx(), center.y - 4.dp.toPx())
+                                            )
+                                            drawCircle(
+                                                color = SketchCoal,
+                                                radius = 3.dp.toPx(),
+                                                center = Offset(center.x + 6.dp.toPx(), center.y - 4.dp.toPx())
+                                            )
+                                            drawArc(
+                                                color = SketchCoal,
+                                                startAngle = 10f,
+                                                sweepAngle = 160f,
+                                                useCenter = false,
+                                                topLeft = Offset(center.x - 7.dp.toPx(), center.y + 1.dp.toPx()),
+                                                size = Size(14.dp.toPx(), 8.dp.toPx()),
+                                                style = Stroke(width = 2.dp.toPx())
+                                            )
+                                            
+                                            // Escape doorway hint
+                                            drawRect(
+                                                color = SketchMarginRed.copy(alpha = 0.5f),
+                                                topLeft = Offset(size.width - 20.dp.toPx(), size.height - 30.dp.toPx()),
+                                                size = Size(15.dp.toPx(), 25.dp.toPx())
+                                            )
+                                            drawRect(
+                                                color = SketchCoal,
+                                                topLeft = Offset(size.width - 20.dp.toPx(), size.height - 30.dp.toPx()),
+                                                size = Size(15.dp.toPx(), 25.dp.toPx()),
+                                                style = Stroke(width = 2.dp.toPx())
+                                            )
+                                        }
+                                    }
+                                )
+                                1 -> TutorialSlideContent(
+                                    title = stringResource(R.string.tutorial_slide2_title),
+                                    description = stringResource(R.string.tutorial_slide2_desc),
+                                    illustration = {
+                                        // Pencil/crayon drafting path
+                                        Column(
+                                            horizontalAlignment = Alignment.CenterHorizontally,
+                                            modifier = Modifier.padding(8.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Edit,
+                                                contentDescription = null,
+                                                tint = SketchActiveBlue,
+                                                modifier = Modifier.size(44.dp)
+                                            )
+                                            Spacer(modifier = Modifier.height(10.dp))
+                                            // Custom line drawing
+                                            Canvas(modifier = Modifier.width(130.dp).height(24.dp)) {
+                                                val p = Path().apply {
+                                                    moveTo(0f, size.height * 0.8f)
+                                                    quadraticTo(size.width * 0.3f, size.height * 0.1f, size.width * 0.7f, size.height * 0.5f)
+                                                    lineTo(size.width, size.height * 0.2f)
+                                                }
+                                                drawPath(
+                                                    path = p,
+                                                    color = SketchCoal,
+                                                    style = Stroke(width = 4.dp.toPx(), cap = StrokeCap.Round)
+                                                )
+                                            }
+                                        }
+                                    }
+                                )
+                                2 -> TutorialSlideContent(
+                                    title = stringResource(R.string.tutorial_slide3_title),
+                                    description = stringResource(R.string.tutorial_slide3_desc),
+                                    illustration = {
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(20.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            // Warning Spikes
+                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                                Canvas(modifier = Modifier.size(40.dp)) {
+                                                    val sizePx = size.width
+                                                    val toothWidth = sizePx / 4f
+                                                    val p = Path().apply {
+                                                        moveTo(0f, sizePx)
+                                                        for (i in 0..4) {
+                                                            val x = i * toothWidth
+                                                            val y = if (i % 2 == 0) sizePx else 0f
+                                                            lineTo(x, y)
+                                                        }
+                                                        lineTo(sizePx, sizePx)
+                                                        close()
+                                                    }
+                                                    drawPath(p, color = SketchRedSpike)
+                                                    drawPath(p, color = SketchCoal, style = Stroke(width = 2.dp.toPx()))
+                                                }
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text("Spikes", fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
+                                            }
+
+                                            // Spring / Bouncer
+                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                                Canvas(modifier = Modifier.size(40.dp)) {
+                                                    val center = Offset(size.width / 2f, size.height / 2f)
+                                                    val radius = size.minDimension * 0.40f
+                                                    drawCircle(
+                                                        color = SketchGreenSpring,
+                                                        radius = radius,
+                                                        center = center
+                                                    )
+                                                    drawCircle(
+                                                        color = SketchCoal,
+                                                        radius = radius,
+                                                        center = center,
+                                                        style = Stroke(width = 2.dp.toPx())
+                                                    )
+                                                    // Spring coil sketch line
+                                                    drawLine(
+                                                        color = SketchCoal,
+                                                        start = Offset(center.x - 10f, center.y - 10f),
+                                                        end = Offset(center.x + 10f, center.y + 10f),
+                                                        strokeWidth = 2f
+                                                    )
+                                                    drawLine(
+                                                        color = SketchCoal,
+                                                        start = Offset(center.x - 10f, center.y + 10f),
+                                                        end = Offset(center.x + 10f, center.y - 10f),
+                                                        strokeWidth = 2f
+                                                    )
+                                                }
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text("Bouncer", fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
+                                            }
+                                        }
+                                    }
+                                )
+                                3 -> TutorialSlideContent(
+                                    title = stringResource(R.string.tutorial_slide4_title),
+                                    description = stringResource(R.string.tutorial_slide4_desc),
+                                    illustration = {
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(14.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            // Retry character button sketch
+                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(40.dp)
+                                                        .background(SketchCream, RoundedCornerShape(8.dp))
+                                                        .border(2.dp, SketchCoal, RoundedCornerShape(8.dp)),
+                                                    contentAlignment = Alignment.Center
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Refresh,
+                                                        contentDescription = null,
+                                                        tint = SketchActiveBlue,
+                                                        modifier = Modifier.size(20.dp)
+                                                    )
+                                                }
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text("Keep Ink", fontSize = 9.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
+                                            }
+                                            
+                                            // Star rating illustration
+                                            Icon(
+                                                imageVector = Icons.Default.Star,
+                                                contentDescription = null,
+                                                tint = Color(0xFFFFD700),
+                                                modifier = Modifier.size(44.dp)
+                                            )
+
+                                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .size(40.dp)
+                                                        .background(SketchCream, RoundedCornerShape(8.dp))
+                                                        .border(2.dp, SketchCoal, RoundedCornerShape(8.dp)),
+                                                    contentAlignment = Alignment.Center
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Delete,
+                                                        contentDescription = null,
+                                                        tint = SketchRedSpike,
+                                                        modifier = Modifier.size(20.dp)
+                                                    )
+                                                }
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text("Clear All", fontSize = 9.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
+                                            }
+                                        }
+                                    }
+                                )
+                            }
+                        } else {
+                            var expandedIndex by remember { mutableStateOf<Int?>(null) }
+                            
+                            Column(
                                 modifier = Modifier
-                                    .size(10.dp)
-                                    .background(
-                                        color = if (isActive) SketchActiveBlue else Color.Transparent,
-                                        shape = androidx.compose.foundation.shape.CircleShape
-                                    )
-                                    .border(
-                                        width = 1.5.dp,
-                                        color = SketchCoal,
-                                        shape = androidx.compose.foundation.shape.CircleShape
-                                    )
-                            )
+                                    .fillMaxSize()
+                                    .verticalScroll(rememberScrollState())
+                                    .padding(horizontal = 2.dp)
+                            ) {
+                                val faqs = listOf(
+                                    Pair(stringResource(R.string.faq_q1), stringResource(R.string.faq_a1)),
+                                    Pair(stringResource(R.string.faq_q2), stringResource(R.string.faq_a2)),
+                                    Pair(stringResource(R.string.faq_q3), stringResource(R.string.faq_a3)),
+                                    Pair(stringResource(R.string.faq_q4), stringResource(R.string.faq_a4))
+                                )
+                                
+                                faqs.forEachIndexed { index, (q, a) ->
+                                    val isExpanded = expandedIndex == index
+                                    Card(
+                                        colors = CardDefaults.cardColors(containerColor = SketchCream),
+                                        border = BorderStroke(1.5.dp, SketchCoal),
+                                        shape = RoundedCornerShape(10.dp),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 6.dp)
+                                            .clickable { 
+                                                expandedIndex = if (isExpanded) null else index 
+                                            }
+                                            .testTag("faq_item_$index")
+                                    ) {
+                                        Column(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(12.dp)
+                                        ) {
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Text(
+                                                    text = q,
+                                                    fontSize = 13.sp,
+                                                    fontWeight = FontWeight.Bold,
+                                                    fontFamily = SketchbookCSS.fontPrint,
+                                                    color = SketchCoal,
+                                                    modifier = Modifier.weight(1f)
+                                                )
+                                                Spacer(modifier = Modifier.width(6.dp))
+                                                Text(
+                                                    text = if (isExpanded) "−" else "+",
+                                                    fontSize = 18.sp,
+                                                    fontWeight = FontWeight.Black,
+                                                    fontFamily = SketchbookCSS.fontTypewriter,
+                                                    color = SketchActiveBlue
+                                                )
+                                            }
+                                            if (isExpanded) {
+                                                Spacer(modifier = Modifier.height(8.dp))
+                                                Text(
+                                                    text = a,
+                                                    fontSize = 11.sp,
+                                                    fontFamily = SketchbookCSS.fontPrint,
+                                                    color = SketchCoal.copy(alpha = 0.85f),
+                                                    lineHeight = 15.sp
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    if (selectedTab == 0) {
+                        // Pager Page Dots styling (handcrafted circles of sketchbook notebook)
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.height(22.dp)
+                        ) {
+                            for (i in 0..3) {
+                                val isActive = i == currentPage
+                                Box(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .background(
+                                            color = if (isActive) SketchActiveBlue else Color.Transparent,
+                                            shape = androidx.compose.foundation.shape.CircleShape
+                                        )
+                                        .border(
+                                            width = 1.5.dp,
+                                            color = SketchCoal,
+                                            shape = androidx.compose.foundation.shape.CircleShape
+                                        )
+                                )
+                            }
+                        }
+                    } else {
+                        // Keep constant height vertical spacing to prevent container resize jump!
+                        Spacer(modifier = Modifier.height(22.dp))
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Navigation buttons
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth().height(48.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (currentPage > 0) {
-                            TextButton(
-                                onClick = { currentPage-- },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .padding(end = 8.dp)
-                                    .border(2.dp, SketchCoal, RoundedCornerShape(8.dp))
-                                    .testTag("tutorial_prev_button")
+                        if (selectedTab == 0) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(
-                                    text = stringResource(R.string.tutorial_prev),
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = SketchbookCSS.fontTypewriter,
-                                    color = SketchCoal
-                                )
+                                if (currentPage > 0) {
+                                    TextButton(
+                                        onClick = { currentPage-- },
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .padding(end = 8.dp)
+                                            .border(2.dp, SketchCoal, RoundedCornerShape(8.dp))
+                                            .testTag("tutorial_prev_button")
+                                    ) {
+                                        Text(
+                                            text = stringResource(R.string.tutorial_prev),
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = SketchbookCSS.fontTypewriter,
+                                            color = SketchCoal
+                                        )
+                                    }
+                                } else {
+                                    // Empty spacer to occupy weight space so Siguiente is aligned right properly
+                                    Spacer(modifier = Modifier.weight(1f).padding(end = 8.dp))
+                                }
+
+                                Button(
+                                    onClick = {
+                                        if (currentPage < 3) {
+                                            currentPage++
+                                        } else {
+                                            onDismiss()
+                                        }
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if (currentPage == 3) SketchGreenSpring else SketchCoal
+                                    ),
+                                    border = BorderStroke(2.dp, SketchCoal),
+                                    shape = RoundedCornerShape(8.dp),
+                                    modifier = Modifier
+                                        .weight(1.2f)
+                                        .testTag("tutorial_next_button")
+                                ) {
+                                    Text(
+                                        text = if (currentPage == 3) {
+                                            stringResource(R.string.tutorial_finish)
+                                        } else {
+                                            stringResource(R.string.tutorial_next)
+                                        },
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = SketchbookCSS.fontPrint,
+                                        color = Color.White
+                                    )
+                                }
                             }
                         } else {
-                            // Empty spacer to occupy weight space so Siguiente is aligned right properly
-                            Spacer(modifier = Modifier.weight(1f).padding(end = 8.dp))
-                        }
-
-                        Button(
-                            onClick = {
-                                if (currentPage < 3) {
-                                    currentPage++
-                                } else {
-                                    onDismiss()
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (currentPage == 3) SketchGreenSpring else SketchCoal
-                            ),
-                            border = BorderStroke(2.dp, SketchCoal),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier
-                                .weight(1.2f)
-                                .testTag("tutorial_next_button")
-                        ) {
-                            Text(
-                                text = if (currentPage == 3) {
-                                    stringResource(R.string.tutorial_finish)
-                                } else {
-                                    stringResource(R.string.tutorial_next)
-                                },
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = SketchbookCSS.fontPrint,
-                                color = Color.White
-                            )
+                            // Single full width Finish / Got it button under FAQ
+                            Button(
+                                onClick = onDismiss,
+                                colors = ButtonDefaults.buttonColors(containerColor = SketchGreenSpring),
+                                border = BorderStroke(2.dp, SketchCoal),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .testTag("tutorial_finish_button")
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.tutorial_finish).uppercase(),
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = SketchbookCSS.fontPrint,
+                                    color = Color.White
+                                )
+                            }
                         }
                     }
                 }

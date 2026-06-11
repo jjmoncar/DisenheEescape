@@ -48,4 +48,15 @@
     <string name="privacy_block_3">3. Sem Publicidade Invasiva ou Rastreadores:\nNão incluímos redes de anúncios direcionados ou SDKs externos para coleta de estatísticas de perfil de usuário. Oferecemos um ecossistema de jogo saudável, seguro para toda a família e para crianças de qualquer idade.</string>
     <string name="privacy_block_4">4. Consultas ao Servidor:\nQualquer consulta integrada opcional a APIs na nuvem é realizada de forma totalmente anónima, sem vincular dados que possam identificar ou rastrear você.</string>
     <string name="privacy_block_5">5. Suporte e Termos de Uso:\nÉ concedida uma licença de jogo limitada, pessoal e recreativa. Para qualquer dúvida sobre sua privacidade ou para suporte de níveis, entre em contato conosco pelo e-mail: emprendedordigital1970@gmail.com</string>
+
+    <string name="faq_tab_presentation">Apresentação</string>
+    <string name="faq_tab_faq">Perguntas (FAQ)</string>
+    <string name="faq_q1">Como faço para apagar as linhas?</string>
+    <string name="faq_a1">Você pode usar o botão \'Limpar Tudo\' (ícone de lixeira) no painel do nível para apagar todos os traços e recomeçar. Ou, se apenas uma queda falhou, pressione \'Tentar Novamente\' para relançar a bola mantendo os seus traços intactos.</string>
+    <string name="faq_q2">O jogo pode ser jogado offline?</string>
+    <string name="faq_a2">Sim, com certeza! Toda a aventura de 50 níveis com simulação física precisa e salvamento seguro no Room roda 100% de forma local no seu dispositivo, sem necessidade de internet.</string>
+    <string name="faq_q3">Como ganhar três estrelas em cada nível?</string>
+    <string name="faq_a3">A quantidade de estrelas obtidas (até 3) depende de quanta tinta resta ao concluir o nível. Seja eficiente e faça traços curtos e precisos!</string>
+    <string name="faq_q4">Como funcionam as molas e a gravidade?</string>
+    <string name="faq_a4">A gravidade puxa a bola para baixo (ou para os lados em alguns níveis). As molas verdes impulsionam a bola fortemente na direção indicada quando há colisão.</string>
 </resources>

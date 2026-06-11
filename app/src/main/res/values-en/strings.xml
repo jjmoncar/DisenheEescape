@@ -48,4 +48,15 @@
     <string name="privacy_block_3">3. No Invasive Ads or Trackers:\nWe do not include targeted ad networks or third-party user profile tracking SDKs. We provide a healthy game ecosystem, safe for the whole family and children of any age.</string>
     <string name="privacy_block_4">4. Server Queries:\nAny optional integrated cloud API queries are made completely anonymously, without linking any data that could identify or track you.</string>
     <string name="privacy_block_5">5. Support &amp; Terms of Use:\nA limited, personal, and recreational game license is granted. For any questions regarding your privacy or for level support, contact us at: emprendedordigital1970@gmail.com</string>
+
+    <string name="faq_tab_presentation">Presentation</string>
+    <string name="faq_tab_faq">Preguntas (FAQ)</string>
+    <string name="faq_q1">How do I erase lines?</string>
+    <string name="faq_a1">You can use the \'Clear All\' button (trash bin icon) in the level panel to erase all strokes and start fresh. Or if only a drop failed, press \'Retry\' to relaunch the ball while preserving your strokes intact.</string>
+    <string name="faq_q2">Is the game playable offline?</string>
+    <string name="faq_a2">Yes, absolutely! The entire 50-level adventure with full physics simulation and secure Room local storage runs 100% locally on your device with no internet connection required.</string>
+    <string name="faq_q3">How do I get three stars in each level?</string>
+    <string name="faq_a3">The number of stars earned (up to 3) is based on the ink remaining when you finish the level. Stay efficient and draw short, concise strokes!</string>
+    <string name="faq_q4">How do springs and gravity work?</string>
+    <string name="faq_a4">Gravity pulls the ball down (or sideways on some levels). Green springs push the ball strongly in the direction they are pointing when the ball collides with them.</string>
 </resources>

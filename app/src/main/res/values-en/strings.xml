@@ -29,6 +29,20 @@
     <string name="reintentar_caida_tooltip">Try drop again</string>
     <string name="borrar_dibujo_tooltip">Clear Drawing</string>
 
+    <string name="help_tooltip">View Game Guide</string>
+    <string name="tutorial_title">How to Play</string>
+    <string name="tutorial_next">Next</string>
+    <string name="tutorial_prev">Back</string>
+    <string name="tutorial_finish">Got it!</string>
+    <string name="tutorial_slide1_title">1. The Goal</string>
+    <string name="tutorial_slide1_desc">Guide the happy round character by dragging your finger or mouse to draw charcoal paths on the notepad. Help it reach the escape portal safely in each level!</string>
+    <string name="tutorial_slide2_title">2. Limited Pencil Ink</string>
+    <string name="tutorial_slide2_desc">Every brushstroke consumes your ink bar. Draw smooth slopes, ramps, or strategic platforms. Use less ink to achieve a higher star rating!</string>
+    <string name="tutorial_slide3_title">3. Hazards &amp; Springs</string>
+    <string name="tutorial_slide3_desc">Avoid red spikes that pop your character. Bounce on green springs to reach high platforms. And look out for level shifts in gravity!</string>
+    <string name="tutorial_slide4_title">4. Pro Tip</string>
+    <string name="tutorial_slide4_desc">Did a drop go wrong? Tap the Retry button (Rotating arrow in the upper panel) to reset the ball while keeping your drawn strokes intact. To redraw from scratch, tap Clear.</string>
+
     <string name="privacy_block_1">1. Complete Respect for Privacy:\nOur app does not collect, transmit, analyze, or share any personally identifiable data from users at all. The game runs entirely locally on your device.</string>
     <string name="privacy_block_2">2. Local Storage (Room):\nYour unlocked level progress (up to 50 levels) and speed records are stored locally on your device in a secure manner. You can wipe them anytime with the clear ink history button.</string>
     <string name="privacy_block_3">3. No Invasive Ads or Trackers:\nWe do not include targeted ad networks or third-party user profile tracking SDKs. We provide a healthy game ecosystem, safe for the whole family and children of any age.</string>

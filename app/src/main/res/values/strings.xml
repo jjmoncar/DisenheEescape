@@ -29,6 +29,20 @@
     <string name="reintentar_caida_tooltip">Intentar caída otra vez</string>
     <string name="borrar_dibujo_tooltip">Borrar Dibujo</string>
 
+    <string name="help_tooltip">Ver Guía de Juego</string>
+    <string name="tutorial_title">Guía de Juego</string>
+    <string name="tutorial_next">Siguiente</string>
+    <string name="tutorial_prev">Atrás</string>
+    <string name="tutorial_finish">¡Entendido!</string>
+    <string name="tutorial_slide1_title">1. El Objetivo</string>
+    <string name="tutorial_slide1_desc">Guía al personaje circular (la bola feliz) deslizando tu dedo o ratón para trazar caminos de carbón en la libreta. ¡Debes hacerlo llegar sano y salvo al portal de escape de cada nivel!</string>
+    <string name="tutorial_slide2_title">2. Tinta de Lápiz Limitada</string>
+    <string name="tutorial_slide2_desc">Cada pincelada consume tu barra de tinta. Dibuja pendientes suaves, rampas o plataformas estratégicas. ¡Usa menos tinta para obtener mayor puntuación de estrellas!</string>
+    <string name="tutorial_slide3_title">3. Peligros y Muelles</string>
+    <string name="tutorial_slide3_desc">Esquiva los pinchos rojos que pinchan tu bola. Rebota con los muelles verdes para alcanzar plataformas altas. ¡Y ten cuidado con los cambios de dirección de la gravedad!</string>
+    <string name="tutorial_slide4_title">4. Truco de Profesional</string>
+    <string name="tutorial_slide4_desc">¿Una caída salió mal? Pulsa el botón de Reintentar (Flecha giratoria en el panel superior) para reubicar la bola manteniendo tus trazos intactos. Si quieres rediseñar desde cero, pulsa Borrar.</string>
+
     <string name="privacy_block_1">1. Respeto Total de Privacidad:\nNuestra aplicación no recopila, transmite, analiza ni comparte ningún dato personal identificable de los usuarios en absoluto. El juego se ejecuta completamente de forma local en su dispositivo.</string>
     <string name="privacy_block_2">2. Guardado Local (Room):\nTu progreso de niveles desbloqueados (hasta 50 niveles) y récords de velocidad se almacenan de manera local y en tu dispositivo de forma segura. Puedes borrarlos cuando desees con el botón de reiniciar historial de tinta.</string>
     <string name="privacy_block_3">3. Sin Publicidad Invasiva o Rastreadores:\nNo incluimos redes publicitarias dirigidas ni SDKs externos de recolección de estadísticas de perfiles de usuario. Ofrecemos un ecosistema de juego sano, seguro para toda la familia y para niños de cualquier edad.</string>

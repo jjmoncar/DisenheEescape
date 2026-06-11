@@ -64,6 +64,7 @@ class GameViewModel(
     var showFailureScreen by mutableStateOf(false)
     var calculatedStars by mutableStateOf(3)
     var finalTimeSec by mutableStateOf(0f)
+    var showTutorialDialog by mutableStateOf(false)
 
     private var lastScratchTime = 0L
     private var lastBounceSoundTime = 0L
@@ -73,6 +74,23 @@ class GameViewModel(
             // First boot checklist: assure 50 levels are generated with standard default states in Room
             repository.ensureDatabasePopulated()
         }
+        
+        // Auto-show tutorial if first-time user
+        val prefs = application.getSharedPreferences("game_prefs", android.content.Context.MODE_PRIVATE)
+        val hasSeenTutorial = prefs.getBoolean("has_seen_tutorial_v3", false)
+        if (!hasSeenTutorial) {
+            showTutorialDialog = true
+        }
+    }
+
+    fun showTutorial() {
+        showTutorialDialog = true
+    }
+
+    fun dismissTutorial() {
+        showTutorialDialog = false
+        val prefs = getApplication<Application>().getSharedPreferences("game_prefs", android.content.Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("has_seen_tutorial_v3", true).apply()
     }
 
     fun navigateToSelector() {

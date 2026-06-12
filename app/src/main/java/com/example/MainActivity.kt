@@ -16,6 +16,10 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
+    
+    // Initialize Google AdMob SDK
+    AdMobManager.initialize(applicationContext)
+
     setContent {
       MyApplicationTheme {
         val context = LocalContext.current.applicationContext

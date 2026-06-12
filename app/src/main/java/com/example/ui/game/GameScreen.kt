@@ -44,6 +44,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
+import androidx.compose.ui.platform.LocalContext
 import com.example.data.model.LevelProgress
 import com.example.game.*
 import com.example.R
@@ -653,12 +657,25 @@ fun LevelItemNode(
     }
 }
 
+// Helper extension function to extract Activity from Context safely
+private fun Context.findActivity(): Activity? {
+    var currentContext = this
+    while (currentContext is ContextWrapper) {
+        if (currentContext is Activity) {
+            return currentContext
+        }
+        currentContext = currentContext.baseContext
+    }
+    return null
+}
+
 @Composable
 fun PlayingScreen(
     viewModel: GameViewModel,
     level: Level,
     onBackToSelectorClicked: () -> Unit
 ) {
+    val context = LocalContext.current
     var canvasSize by remember { mutableStateOf(Size.Zero) }
 
     BoxWithConstraints(
@@ -746,7 +763,14 @@ fun PlayingScreen(
                     viewModel.fullResetLevel()
                 },
                 onNextClicked = {
-                    viewModel.playNextLevel()
+                    val activity = context.findActivity()
+                    if (activity != null) {
+                        com.example.AdMobManager.showAdIfReady(activity) {
+                            viewModel.playNextLevel()
+                        }
+                    } else {
+                        viewModel.playNextLevel()
+                    }
                 },
                 onHomeClicked = onBackToSelectorClicked
             )

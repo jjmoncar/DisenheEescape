@@ -364,26 +364,124 @@ fun MainMenuScreen(
     }
 
     if (showConfirmReset) {
-        AlertDialog(
-            onDismissRequest = { showConfirmReset = false },
-            title = { Text(stringResource(R.string.reset_progress_title), fontWeight = FontWeight.Bold) },
-            text = { Text(stringResource(R.string.reset_progress_text)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showConfirmReset = false
-                        onResetProgressClicked()
-                    }
+        androidx.compose.ui.window.Dialog(
+            onDismissRequest = { showConfirmReset = false }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 24.dp)
+                    .padding(end = 4.dp, bottom = 4.dp)
+            ) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = SketchCardInks),
+                    border = BorderStroke(SketchbookCSS.borderThickness, SketchCoal),
+                    shape = RoundedCornerShape(SketchbookCSS.cardCornerRadius),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .neoShadow(cornerRadius = 12f, offset = 5f)
                 ) {
-                    Text(stringResource(R.string.delete_all), color = MaterialTheme.colorScheme.error, fontWeight = FontWeight.Bold)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showConfirmReset = false }) {
-                    Text(stringResource(R.string.cancel))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        // Title
+                        Text(
+                            text = stringResource(R.string.reset_progress_title).uppercase(),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Black,
+                            fontFamily = SketchbookCSS.fontCursive,
+                            color = SketchCoal,
+                            textAlign = TextAlign.Center
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+                        
+                        // Icon to emphasize caution / sketch pencil style
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = stringResource(R.string.reset_progress_title),
+                            tint = SketchRedSpike,
+                            modifier = Modifier.size(36.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        
+                        // Text description
+                        Text(
+                            text = stringResource(R.string.reset_progress_text),
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = SketchbookCSS.fontPrint,
+                            color = SketchCoal.copy(alpha = 0.85f),
+                            textAlign = TextAlign.Center,
+                            lineHeight = 22.sp
+                        )
+                        
+                        Spacer(modifier = Modifier.height(24.dp))
+                        
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            // CANCEL (Primary UX to keep progress, easy to hit)
+                            Button(
+                                onClick = { showConfirmReset = false },
+                                modifier = Modifier
+                                    .weight(1.1f)
+                                    .height(48.dp)
+                                    .testTag("reset_cancel_button")
+                                    .neoShadow(cornerRadius = 8f, offset = 2f),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = SketchCream,
+                                    contentColor = SketchCoal
+                                ),
+                                border = BorderStroke(2.dp, SketchCoal),
+                                shape = RoundedCornerShape(8.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.cancel),
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = SketchbookCSS.fontTypewriter,
+                                    fontSize = 13.sp
+                                )
+                            }
+                            
+                            // CONFIRM DELETE
+                            Button(
+                                onClick = {
+                                    showConfirmReset = false
+                                    onResetProgressClicked()
+                                },
+                                modifier = Modifier
+                                    .weight(1.1f)
+                                    .height(48.dp)
+                                    .testTag("reset_confirm_button")
+                                    .neoShadow(cornerRadius = 8f, offset = 2f),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = SketchRedSpike,
+                                    contentColor = Color.White
+                                ),
+                                border = BorderStroke(2.dp, SketchCoal),
+                                shape = RoundedCornerShape(8.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.delete_all),
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontFamily = SketchbookCSS.fontTypewriter,
+                                    color = Color.White,
+                                    fontSize = 13.sp
+                                )
+                            }
+                        }
+                    }
                 }
             }
-        )
+        }
     }
 
     if (showPrivacyTermsDialog) {

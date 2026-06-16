@@ -40,15 +40,15 @@ object LevelManager {
     }
 
     private fun generateLevel(id: Int): Level {
-        val name: String
-        val startX: Float
-        val startY: Float
-        val doorX: Float
-        val doorY: Float
-        val inkLimit: Float
+        var name = ""
+        var startX = 0f
+        var startY = 0f
+        var doorX = 0f
+        var doorY = 0f
+        var inkLimit = 0f
         var gravityX = 0f
         var gravityY = 16f // Downward gravity standard
-        val hint: String
+        var hint = ""
         val objects = mutableListOf<GameObject>()
 
         // Progressive logic to generate exactly 50 distinct levels
@@ -138,10 +138,30 @@ object LevelManager {
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, startX - 5f, startY + 8f, 15f, 5f))
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, doorX - 5f, doorY + 12f, 15f, 5f))
 
-                // Intermediate barrier
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, 40f, 50f, 20f, 8f))
-                // Simple warning spikes at bottom
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 35f, 95f, 30f, 5f))
+                when (id) {
+                    6 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 40f, 60f, 20f, 6f, "Estante"))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 30f, 95f, 25f, 5f))
+                    }
+                    7 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 30f, 45f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 60f, 65f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 45f, 95f, 20f, 5f))
+                    }
+                    8 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 30f, 10f, 35f, "Columna"))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 20f, 95f, 20f, 5f))
+                    }
+                    9 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 50f, 70f, 25f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 60f, 65f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 15f, 95f, 30f, 5f))
+                    }
+                    10 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 55f, 5f, 25f, "Pared"))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 25f, 95f, 40f, 5f))
+                    }
+                }
             }
 
             // ==========================================
@@ -228,10 +248,29 @@ object LevelManager {
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, 10f, 22f, 15f, 5f))
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 92f, 20f, 5f))
 
-                // Generates varying spikes
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 30f, 40f + (step * 8f), 15f, 6f))
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 55f, 85f - (step * 8f), 15f, 6f))
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 55f, 10f, 10f))
+                when (id) {
+                    16 -> {
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 25f, 45f, 15f, 6f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 65f, 75f, 15f, 6f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 50f, 25f, 8f, 8f))
+                    }
+                    17 -> {
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 35f, 80f, 15f, 6f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 50f, 30f, 5f, 40f))
+                    }
+                    18 -> {
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 35f, 40f, 10f, 10f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 65f, 60f, 10f, 10f))
+                    }
+                    19 -> {
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 30f, 20f, 40f, 6f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 30f, 95f, 45f, 5f))
+                    }
+                    20 -> {
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 35f, 45f, 30f, 8f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 50f, 25f, 10f, 10f))
+                    }
+                }
             }
 
             // ==========================================
@@ -288,18 +327,94 @@ object LevelManager {
             id <= 30 -> {
                 val step = id - 23
                 name = "Cámara Elástica #$step"
-                startX = 20f
-                startY = 15f
-                doorX = 80f
-                doorY = 80f
                 inkLimit = 400f
                 hint = "Apóyate en el resorte para ascender."
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, 10f, 25f, 20f, 5f))
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, 70f, 90f, 20f, 5f))
 
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 70f - (step * 3f), 12f, 5f))
-                objects.add(GameObject(ObjectType.BOUNCER, 48f, 65f - (step * 3f), 6f, 5f))
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 35f, 95f, 30f, 5f))
+                when (id) {
+                    24 -> {
+                        startX = 15f
+                        startY = 30f
+                        doorX = 85f
+                        doorY = 85f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 38f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 92f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 55f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 48f, 50f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 40f, 95f, 20f, 5f))
+                    }
+                    25 -> {
+                        startX = 85f
+                        startY = 30f
+                        doorX = 15f
+                        doorY = 85f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 38f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 92f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 50f, 65f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 53f, 60f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 15f, 95f, 25f, 5f))
+                    }
+                    26 -> {
+                        startX = 15f
+                        startY = 20f
+                        doorX = 85f
+                        doorY = 20f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 28f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 28f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 25f, 80f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 28f, 75f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 65f, 50f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 68f, 45f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 40f, 95f, 20f, 5f))
+                    }
+                    27 -> {
+                        startX = 5f
+                        startY = 20f
+                        doorX = 90f
+                        doorY = 20f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 0f, 28f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 85f, 28f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 85f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 48f, 80f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 20f, 95f, 25f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 58f, 95f, 25f, 5f))
+                    }
+                    28 -> {
+                        startX = 12f
+                        startY = 20f
+                        doorX = 85f
+                        doorY = 25f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 28f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 33f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 30f, 8f, 50f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 20f, 75f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 23f, 70f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 45f, 95f, 40f, 5f))
+                    }
+                    29 -> {
+                        startX = 15f
+                        startY = 80f
+                        doorX = 85f
+                        doorY = 25f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 88f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 33f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 40f, 85f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 45f, 80f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 65f, 95f, 30f, 5f))
+                    }
+                    30 -> {
+                        startX = 10f
+                        startY = 15f
+                        doorX = 90f
+                        doorY = 15f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 23f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 80f, 23f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 20f, 80f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 23f, 75f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 68f, 80f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 71f, 75f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 38f, 95f, 24f, 5f))
+                    }
+                }
             }
 
             // ==========================================
@@ -396,10 +511,34 @@ object LevelManager {
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 38f, 15f, 5f))
                 objects.add(GameObject(ObjectType.BOX_PLATFORM, 80f, 78f, 15f, 5f))
 
-                // Varied gravity zones
-                objects.add(GameObject(ObjectType.GRAVITY_LEFT, 35f, 25f + (step * 5f), 7f, 7f))
-                objects.add(GameObject(ObjectType.GRAVITY_DOWN, 65f, 65f - (step * 5f), 7f, 7f))
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 40f, 95f, 30f, 5f))
+                when (id) {
+                    36 -> {
+                        objects.add(GameObject(ObjectType.GRAVITY_UP, 35f, 60f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.GRAVITY_RIGHT, 65f, 20f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 30f, 5f, 30f, 6f))
+                    }
+                    37 -> {
+                        objects.add(GameObject(ObjectType.GRAVITY_RIGHT, 25f, 40f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.GRAVITY_LEFT, 75f, 45f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 45f, 85f, 15f, 6f))
+                    }
+                    38 -> {
+                        objects.add(GameObject(ObjectType.GRAVITY_DOWN, 30f, 25f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.GRAVITY_UP, 50f, 75f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.GRAVITY_LEFT, 70f, 40f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 95f, 30f, 5f, 40f))
+                    }
+                    39 -> {
+                        gravityY = -14f
+                        objects.add(GameObject(ObjectType.GRAVITY_DOWN, 50f, 35f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 40f, 5f, 30f, 6f))
+                    }
+                    40 -> {
+                        objects.add(GameObject(ObjectType.GRAVITY_RIGHT, 30f, 45f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.GRAVITY_LEFT, 60f, 45f, 7f, 7f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 45f, 15f, 10f, 10f))
+                    }
+                }
             }
 
             // ==========================================
@@ -498,20 +637,74 @@ object LevelManager {
             else -> {
                 val step = id - 45
                 name = "Prueba de Graduación #$step"
-                startX = 50f - (step * 3f)
-                startY = 15f
-                doorX = 50f + (step * 3f)
-                doorY = 85f
-                inkLimit = 280f + (step * 10f) // Extreme low ink!
+                inkLimit = 280f + (step * 10f)
                 hint = "La prueba definitiva: ¡tinta escasa, gravedad mixta, trampas móviles!"
 
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, startX - 5f, startY + 8f, 15f, 5f))
-                objects.add(GameObject(ObjectType.BOX_PLATFORM, doorX - 5f, doorY + 12f, 15f, 5f))
-
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 10f, 45f + step, 25f, 6f))
-                objects.add(GameObject(ObjectType.SPIKE_HAZARD, 65f, 45f - step, 25f, 6f))
-                objects.add(GameObject(ObjectType.BOUNCER, 47f, 60f, 6f, 4f))
-                objects.add(GameObject(ObjectType.GRAVITY_UP, 48f, 35f, 5f, 5f))
+                when (id) {
+                    46 -> {
+                        startX = 15f
+                        startY = 15f
+                        doorX = 85f
+                        doorY = 85f
+                        gravityY = 10f // Low gravity downward
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 22f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 92f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 35f, 45f, 15f, 6f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 65f, 65f, 10f, 10f))
+                        objects.add(GameObject(ObjectType.GRAVITY_LEFT, 50f, 30f, 6f, 6f))
+                    }
+                    47 -> {
+                        startX = 50f
+                        startY = 15f
+                        doorX = 50f
+                        doorY = 85f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 42f, 22f, 16f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 42f, 92f, 16f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 25f, 40f, 25f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 50f, 65f, 25f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 10f, 55f, 10f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 12f, 50f, 6f, 5f))
+                    }
+                    48 -> {
+                        startX = 10f
+                        startY = 50f
+                        doorX = 90f
+                        doorY = 50f
+                        gravityX = 0f
+                        gravityY = 0f // Zero gravity
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 58f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 58f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 30f, 35f, 12f, 12f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 60f, 65f, 12f, 12f))
+                        objects.add(GameObject(ObjectType.GRAVITY_DOWN, 45f, 45f, 7f, 7f))
+                    }
+                    49 -> {
+                        startX = 15f
+                        startY = 15f
+                        doorX = 85f
+                        doorY = 15f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 22f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 75f, 22f, 20f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 25f, 90f, 50f, 6f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 80f, 12f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 48f, 75f, 6f, 5f))
+                        objects.add(GameObject(ObjectType.SPINNER_HAZARD, 50f, 50f, 10f, 10f))
+                    }
+                    50 -> {
+                        startX = 10f
+                        startY = 15f
+                        doorX = 90f
+                        doorY = 85f
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 5f, 22f, 15f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 80f, 92f, 18f, 5f))
+                        objects.add(GameObject(ObjectType.GRAVITY_UP, 30f, 70f, 8f, 8f))
+                        objects.add(GameObject(ObjectType.GRAVITY_RIGHT, 60f, 30f, 8f, 8f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 20f, 95f, 30f, 5f))
+                        objects.add(GameObject(ObjectType.SPIKE_HAZARD, 40f, 5f, 35f, 5f))
+                        objects.add(GameObject(ObjectType.BOX_PLATFORM, 45f, 50f, 10f, 5f))
+                        objects.add(GameObject(ObjectType.BOUNCER, 47f, 45f, 6f, 5f))
+                    }
+                }
             }
         }
 

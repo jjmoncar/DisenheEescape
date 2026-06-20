@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     
     // Initialize Google AdMob SDK
-    AdMobManager.initialize(applicationContext)
+    AdMobManager.initialize(this)
 
     setContent {
       MyApplicationTheme {

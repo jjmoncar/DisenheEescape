@@ -20,6 +20,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlin.math.sqrt
 
+enum class Difficulty(val title: String, val gravityMult: Float, val bounceMult: Float) {
+    EASY("Easy", 0.6f, 1.3f),
+    NORMAL("Normal", 1.0f, 1.0f),
+    HARD("Hard", 1.4f, 0.7f)
+}
+
 sealed interface GameState {
     data object MainMenu : GameState
     data object LevelSelector : GameState
@@ -65,6 +71,7 @@ class GameViewModel(
     var calculatedStars by mutableStateOf(3)
     var finalTimeSec by mutableStateOf(0f)
     var showTutorialDialog by mutableStateOf(false)
+    var difficulty by mutableStateOf(Difficulty.NORMAL)
 
     private var lastScratchTime = 0L
     private var lastBounceSoundTime = 0L
@@ -232,7 +239,7 @@ class GameViewModel(
         val oldVy = character.vy
 
         // Compute physics movement and updates
-        PhysicsEngine.update(mockState, activeLevel, drawnLines, dtSeconds)
+        PhysicsEngine.update(mockState, activeLevel, drawnLines, dtSeconds, difficulty.gravityMult, difficulty.bounceMult)
 
         // Commit modifications
         character = mockState

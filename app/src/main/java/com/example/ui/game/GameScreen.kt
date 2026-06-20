@@ -149,6 +149,7 @@ fun GameApp(viewModel: GameViewModel) {
 
     if (viewModel.showTutorialDialog) {
         TutorialDialog(
+            viewModel = viewModel,
             onDismiss = { viewModel.dismissTutorial() }
         )
     }
@@ -2021,6 +2022,7 @@ fun Modifier.fontFamilyHack(family: FontFamily) = this
 
 @Composable
 fun TutorialDialog(
+    viewModel: GameViewModel,
     onDismiss: () -> Unit
 ) {
     var currentPage by remember { mutableStateOf(0) }
@@ -2223,6 +2225,12 @@ fun TutorialDialog(
                                                 style = Stroke(width = 2.dp.toPx())
                                             )
                                         }
+                                    },
+                                    bottomContent = {
+                                        DifficultySelector(
+                                            currentDifficulty = viewModel.difficulty,
+                                            onDifficultyChange = { viewModel.difficulty = it }
+                                        )
                                     }
                                 )
                                 1 -> TutorialSlideContent(
@@ -2579,7 +2587,8 @@ fun TutorialDialog(
 fun TutorialSlideContent(
     title: String,
     description: String,
-    illustration: @Composable () -> Unit
+    illustration: @Composable () -> Unit,
+    bottomContent: (@Composable () -> Unit)? = null
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -2613,10 +2622,54 @@ fun TutorialSlideContent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp),
+                .weight(1f)
+                .padding(vertical = 4.dp),
             contentAlignment = Alignment.Center
         ) {
             illustration()
+        }
+        
+        if (bottomContent != null) {
+            bottomContent()
+        }
+    }
+}
+
+@Composable
+fun DifficultySelector(
+    currentDifficulty: Difficulty,
+    onDifficultyChange: (Difficulty) -> Unit
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text("Difficulty Level:", fontSize = 12.sp, fontWeight = FontWeight.Bold, fontFamily = SketchbookCSS.fontTypewriter, color = SketchCoal)
+        Row(
+            modifier = Modifier.padding(top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Difficulty.values().forEach { difficulty ->
+                val isSelected = currentDifficulty == difficulty
+                Box(
+                    modifier = Modifier
+                        .clickable { onDifficultyChange(difficulty) }
+                        .neoShadow(cornerRadius = 6f, offset = if (isSelected) 0f else 2f)
+                        .background(
+                            if (isSelected) SketchCoal else SketchCream,
+                            RoundedCornerShape(6.dp)
+                        )
+                        .border(1.5.dp, SketchCoal, RoundedCornerShape(6.dp))
+                        .padding(horizontal = 8.dp, vertical = 6.dp)
+                        .testTag("difficulty_${difficulty.name}"),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = difficulty.title,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = SketchbookCSS.fontTypewriter,
+                        color = if (isSelected) Color.White else SketchCoal
+                    )
+                }
+            }
         }
     }
 }

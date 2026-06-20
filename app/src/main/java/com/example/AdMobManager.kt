@@ -42,10 +42,19 @@ object AdMobManager {
      */
     fun initialize(context: Context) {
         try {
-            MobileAds.initialize(context) { status ->
+            val attrContext = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                try {
+                    context.createAttributionContext("AdMob")
+                } catch (e: Exception) {
+                    context
+                }
+            } else {
+                context
+            }
+            MobileAds.initialize(attrContext) { status ->
                 Log.d(TAG, "MobileAds initialization finished. Status: $status")
                 // Start loading the first ad automatically
-                loadAd(context)
+                loadAd(attrContext)
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error initializing MobileAds", e)
@@ -60,6 +69,16 @@ object AdMobManager {
             return
         }
 
+        val attrContext = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            try {
+                context.createAttributionContext("AdMob")
+            } catch (e: Exception) {
+                context
+            }
+        } else {
+            context
+        }
+
         isLoading = true
         val adRequest = AdRequest.Builder().build()
         val currentId = adUnitId
@@ -67,7 +86,7 @@ object AdMobManager {
         Log.d(TAG, "Loading Interstitial Ad with ID: $currentId")
 
         InterstitialAd.load(
-            context.applicationContext,
+            attrContext,
             currentId,
             adRequest,
             object : InterstitialAdLoadCallback() {

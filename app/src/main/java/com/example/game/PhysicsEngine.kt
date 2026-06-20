@@ -28,13 +28,15 @@ object PhysicsEngine {
         state: CharacterState,
         level: Level,
         drawnLines: List<List<Offset>>,
-        dt: Float
+        dt: Float,
+        gravityMult: Float = 1.0f,
+        bounceMult: Float = 1.0f
     ) {
         if (state.isDead || state.isVictorious) return
 
         // 1. Apply Gravity
-        state.vx += state.activeGravityX * dt
-        state.vy += state.activeGravityY * dt
+        state.vx += state.activeGravityX * gravityMult * dt
+        state.vy += state.activeGravityY * gravityMult * dt
 
         // Speed limiting to prevent tunneling
         val maxSpeed = 75f
@@ -56,18 +58,18 @@ object PhysicsEngine {
 
         if (state.x < leftWall) {
             state.x = leftWall
-            state.vx = -state.vx * 0.3f // Slight bounce
+            state.vx = -state.vx * (0.3f * bounceMult) // Slight bounce
         } else if (state.x > rightWall) {
             state.x = rightWall
-            state.vx = -state.vx * 0.3f
+            state.vx = -state.vx * (0.3f * bounceMult)
         }
 
         if (state.y < topWall) {
             state.y = topWall
-            state.vy = -state.vy * 0.3f
+            state.vy = -state.vy * (0.3f * bounceMult)
         } else if (state.y > bottomWall) {
             state.y = bottomWall
-            state.vy = -state.vy * 0.3f
+            state.vy = -state.vy * (0.3f * bounceMult)
             // If normal gravity pulls down and we sit on the spikes-less floor, don't die but stop falling
             // Wait, we can let them roll on bottom floor.
         }
@@ -76,10 +78,10 @@ object PhysicsEngine {
         for (obj in level.objects) {
             when (obj.type) {
                 ObjectType.BOX_PLATFORM -> {
-                    resolveBoxCollision(state, obj)
+                    resolveBoxCollision(state, obj, bounceMult)
                 }
                 ObjectType.BOUNCER -> {
-                    resolveBouncerCollision(state, obj)
+                    resolveBouncerCollision(state, obj, bounceMult)
                 }
                 ObjectType.SPIKE_HAZARD -> {
                     if (checkSpikeCollision(state, obj)) {
@@ -123,7 +125,7 @@ object PhysicsEngine {
             for (i in 0 until line.size - 1) {
                 val p1 = line[i]
                 val p2 = line[i + 1]
-                resolveLineSegmentCollision(state, p1, p2)
+                resolveLineSegmentCollision(state, p1, p2, bounceMult)
             }
         }
 
@@ -136,7 +138,7 @@ object PhysicsEngine {
         }
     }
 
-    private fun resolveBoxCollision(state: CharacterState, box: GameObject) {
+    private fun resolveBoxCollision(state: CharacterState, box: GameObject, bounceMult: Float = 1.0f) {
         // Find closest point on the AABB to the circle center
         val closestX = state.x.coerceIn(box.x, box.x + box.width)
         val closestY = state.y.coerceIn(box.y, box.y + box.height)
@@ -158,7 +160,7 @@ object PhysicsEngine {
             val dot = state.vx * nx + state.vy * ny
             if (dot < 0) {
                 // Moving into the box, reflect with restitution
-                val restitution = 0.25f
+                val restitution = 0.25f * bounceMult
                 state.vx = state.vx - (1 + restitution) * dot * nx
                 state.vy = state.vy - (1 + restitution) * dot * ny
             }
@@ -173,25 +175,25 @@ object PhysicsEngine {
             when (minDist) {
                 leftDist -> {
                     state.x = box.x - state.radius
-                    state.vx = -state.vx * 0.25f
+                    state.vx = -state.vx * (0.25f * bounceMult)
                 }
                 rightDist -> {
                     state.x = box.x + box.width + state.radius
-                    state.vx = -state.vx * 0.25f
+                    state.vx = -state.vx * (0.25f * bounceMult)
                 }
                 topDist -> {
                     state.y = box.y - state.radius
-                    state.vy = -state.vy * 0.25f
+                    state.vy = -state.vy * (0.25f * bounceMult)
                 }
                 bottomDist -> {
                     state.y = box.y + box.height + state.radius
-                    state.vy = -state.vy * 0.25f
+                    state.vy = -state.vy * (0.25f * bounceMult)
                 }
             }
         }
     }
 
-    private fun resolveBouncerCollision(state: CharacterState, bouncer: GameObject) {
+    private fun resolveBouncerCollision(state: CharacterState, bouncer: GameObject, bounceMult: Float = 1.0f) {
         val closestX = state.x.coerceIn(bouncer.x, bouncer.x + bouncer.width)
         val closestY = state.y.coerceIn(bouncer.y, bouncer.y + bouncer.height)
 
@@ -202,7 +204,7 @@ object PhysicsEngine {
         if (dist < state.radius) {
             // Elastic upward launch trigger!
             val pushAngle = -1.5708f // Straight upwards (-Y)
-            val launchSpd = 34f      // Big upwards launch!
+            val launchSpd = 34f * bounceMult
 
             state.vy = -launchSpd
             if (state.vx in -3f..3f) {
@@ -252,7 +254,7 @@ object PhysicsEngine {
         return dist < (state.radius + radius)
     }
 
-    private fun resolveLineSegmentCollision(state: CharacterState, p1: Offset, p2: Offset) {
+    private fun resolveLineSegmentCollision(state: CharacterState, p1: Offset, p2: Offset, bounceMult: Float = 1.0f) {
         val segmentVectorX = p2.x - p1.x
         val segmentVectorY = p2.y - p1.y
 
@@ -290,7 +292,7 @@ object PhysicsEngine {
 
             if (relativeVelNormal < 0f) {
                 // Moving into the line, absorb kinetic energy and slide
-                val restitution = 0.15f // Low bounce for natural sliding paper aesthetic
+                val restitution = 0.15f * bounceMult // Low bounce for natural sliding paper aesthetic
                 state.vx = state.vx - (1 + restitution) * relativeVelNormal * normalX
                 state.vy = state.vy - (1 + restitution) * relativeVelNormal * normalY
 
